@@ -14,7 +14,7 @@ fileInput.onchange = () => {
     }
 
     const size = total / 1024;
-    fileInfo.innerHTML = `${list}<br><b>Total: ${size.toFixed(2)} KB</b>`;
+    fileInfo.innerHTML = `${list}<br><b>Total: ${size.toFixed(2)} KB (${total} Bytes)</b>`;
 
     const tier = size <= 2 ? "Ultra Hard" : size <= 5 ? "Hard" : size <= 15 ? "Standard" : "";
 
