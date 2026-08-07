@@ -10,7 +10,7 @@ p{color: #e1e1e1;margin-top:.3rem;}
 
 input{display:none;}
 
-#file-info,#pass-info{padding:.8rem;margin-top:.7rem;background:#181818;border-radius:6px;border:1px solid #333;}
+#file-info,#tier-info{padding:.8rem;margin-top:.7rem;background:#181818;border-radius:6px;border:1px solid #333;}
 
 .ultra-hard{color:#5f5}
 .hard{color:#fc5}
