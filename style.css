@@ -12,7 +12,10 @@ input{display:none;}
 
 #file-info,#tier-info{padding:.8rem;margin-top:.7rem;background:#181818;border-radius:6px;border:1px solid #333;}
 
-.ultra-hard{color:#5f5}
-.hard{color:#fc5}
-.standard{color: #ff8855}
-.fail{color:#f55}
+.ultra-hard{color:#7fff8a;background:#102415;}
+
+.hard{color:#ffd66b;background:#25200f;}
+
+.standard{color:#ff9966;background:#2a1810;}
+
+.fail{color:#ff7777;}
