@@ -1,29 +1,23 @@
-const fileInput = document.getElementById("file-chooser");
-const fileInfo = document.getElementById("file-info");
-const tierInfo = document.getElementById("tier-info");
+const $ = id => document.getElementById(id);
+const fileInput = $("file-chooser"), fileInfo = $("file-info"), tierInfo = $("tier-info");
 
 tierInfo.style.display = "none";
 
 fileInput.onchange = async () => {
     tierInfo.style.display = "inline-block";
 
-    let total = 0, list = "";
-    for (const file of fileInput.files) {
-        const text = await file.text();
-        const lines = text.split("\n").length;
-        list += `${file.name} | ${lines} lines | ${(file.size / 1024).toFixed(2)} KB<br>`;
-        total += file.size;
-    }
+    let files = [...fileInput.files];
+    let total = files.reduce((a, f) => a + f.size, 0);
 
-    const size = total / 1024;
-    fileInfo.innerHTML = `${list}<br><b>Total: ${size.toFixed(2)} KB (${total} Bytes)<br></b>`;
+    let list = (await Promise.all(files.map(async f =>
+        `${f.name} | ${(await f.text()).split("\n").length} lines | ${(f.size / 1024).toFixed(2)} KB`
+    ))).join("<br>");
 
-    const tier = size <= 2 ? "Ultra Hard" : size <= 5 ? "Hard" : size <= 15 ? "Standard" : "";
+    let size = total / 1024;
+    fileInfo.innerHTML = `${list}<br><br><b>Total: ${size.toFixed(2)} KB (${total} Bytes)</b>`;
 
-    if (!tier) {
-        tierInfo.innerHTML = `<span class="fail">This project is over 15KB ):</span>`;
-    } else {
-        const tierClass = tier.toLowerCase().replace(" ", "-");
-        tierInfo.innerHTML = `This project is <span class="${tierClass}">${tier}</span> tier.`;
-    }
+    let tier = size <= 2 ? "Ultra Hard" : size <= 5 ? "Hard" : size <= 15 ? "Standard" : null;
+
+    tierInfo.innerHTML = tier ? `This project is <span class="${tier.toLowerCase().replace(" ", "-")}">${tier}</span> tier.`
+        : `<span class="fail">This project is over 15KB ):</span>`;
 };
